@@ -12,6 +12,8 @@ public class playerBehavior : MonoBehaviour
     public static float yMoviment;
     public static bool move;
 
+    public GameObject ataqueDoMago;
+
     private void Start()
     {
         move = true;
@@ -21,6 +23,7 @@ public class playerBehavior : MonoBehaviour
     {
         Moviment();
         Limit();
+        Ataque();
     }
 
     /// <summary>
@@ -66,4 +69,12 @@ public class playerBehavior : MonoBehaviour
             transform.position = new Vector3(transform.position.x, -yMax);
         }
     }
+
+    void Ataque()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Instantiate(ataqueDoMago, new Vector3(transform.position.x, transform.position.y), Quaternion.identity);
+        }
+   }
 }
