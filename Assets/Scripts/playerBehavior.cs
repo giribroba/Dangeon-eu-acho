@@ -8,9 +8,14 @@ public class playerBehavior : MonoBehaviour
     public float xMax;
     public float yMax;
 
-    float xMoviment;
-    float yMoviment;
+    public static float xMoviment;
+    public static float yMoviment;
+    public static bool move;
 
+    private void Start()
+    {
+        move = true;
+    }
 
     void Update()
     {
@@ -19,17 +24,21 @@ public class playerBehavior : MonoBehaviour
     }
 
     /// <summary>
-    /// Essa função contraa a movimentação do personagem
+    /// Essa função controla a movimentação do personagem
     /// </summary>
     void Moviment()
     {
         //Impulso
         xMoviment = Input.GetAxis("Horizontal");
         yMoviment = Input.GetAxis("Vertical");
-        
+
         //Direção
-        transform.Translate(Vector3.right * xMoviment * speed * Time.deltaTime);
-        transform.Translate(Vector3.up * yMoviment * speed * Time.deltaTime);
+        if (move)
+        {
+            transform.Translate(Vector3.right * xMoviment * speed * Time.deltaTime);
+            transform.Translate(Vector3.up * yMoviment * speed * Time.deltaTime);
+        }
+
     }
 
     /// <summary>
