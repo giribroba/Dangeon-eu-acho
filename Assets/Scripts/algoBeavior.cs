@@ -24,14 +24,10 @@ public class algoBeavior : MonoBehaviour
     private void Update()
     {
         //Empurra o player ao colidir com o objeto
-        if (empurrando > 0 && playerBehavior.xMoviment != 0)
-        {
-            Player.transform.Translate(Vector3.right * -playerBehavior.xMoviment * speed * Time.deltaTime);
-            playerBehavior.move = false;
-        }
-        else if (empurrando > 0 && playerBehavior.yMoviment != 0)
+        if (empurrando > 0 && (playerBehavior.xMoviment != 0 || playerBehavior.yMoviment != 0))
         {
             Player.transform.Translate(Vector3.up * -playerBehavior.yMoviment * speed * Time.deltaTime);
+            Player.transform.Translate(Vector3.right * -playerBehavior.xMoviment * speed * Time.deltaTime);
             playerBehavior.move = false;
         }
         else
