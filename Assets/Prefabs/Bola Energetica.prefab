@@ -93,10 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e06d98c455642478287fa68a0be2c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
+  speed: 6
   xmax: 8.05
   ymax: 4.2
   bolaEnergetica: {fileID: 1082703136088563526}
+  danoBase: 20
 --- !u!58 &1852429552619105818
 CircleCollider2D:
   m_ObjectHideFlags: 0

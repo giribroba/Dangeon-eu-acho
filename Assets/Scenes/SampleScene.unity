@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de653e1085d494d4ea631c180d035975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 4
   xMax: 8.05
   yMax: 4.2
   ataqueDoMago: {fileID: 1082703136088563526, guid: 580966b8ee097ca41937bc6939c79f8d,

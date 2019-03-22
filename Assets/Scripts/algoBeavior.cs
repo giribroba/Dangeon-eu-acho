@@ -12,6 +12,7 @@ public class algoBeavior : MonoBehaviour
 
     public float tempoEmpurrar;
     public GameObject Player;
+    public static float Vida;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -26,6 +27,11 @@ public class algoBeavior : MonoBehaviour
     }
 
     private void Update()
+    {
+        Empurra();
+    }
+
+    void Empurra()
     {
         //Empurra o player ao colidir com o objeto
         if (empurrando > 0 && (playerBehavior.xMoviment != 0 || playerBehavior.yMoviment != 0))
@@ -56,5 +62,4 @@ public class algoBeavior : MonoBehaviour
             yPush += 0.7f * Time.deltaTime;
         }
     }
-
 }
