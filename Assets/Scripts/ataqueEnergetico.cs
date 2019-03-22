@@ -8,6 +8,9 @@ public class ataqueEnergetico : MonoBehaviour
     public float xmax;
     public float ymax;
     public GameObject bolaEnergetica;
+    public static float danoTotal;
+    public float danoBase;
+
     void Update()
     {
         movimentação();
@@ -30,7 +33,14 @@ public class ataqueEnergetico : MonoBehaviour
     {
         if (other.tag != "Player")
         {
+            Dano();
             Destroy(gameObject);
         }
+    }
+
+    void Dano()
+    {
+        danoTotal = danoBase + 0.8f * playerBehavior.poderMagico;
+        vidaCount.Vida = vidaCount.Vida - danoTotal;
     }
 }

@@ -16,6 +16,7 @@ public class playerBehavior : MonoBehaviour
     public static bool move;
 
     public GameObject ataqueDoMago;
+    public static float poderMagico;
 
     private void Start()
     {
@@ -72,7 +73,9 @@ public class playerBehavior : MonoBehaviour
             transform.position = new Vector3(transform.position.x, -yMax);
         }
     }
-
+    /// <summary>
+    /// Lança um ataque básico quando o jogador pressiona a barra de espaço
+    /// </summary>
     void Ataque()
     {
         if (Input.GetKeyDown(KeyCode.Space) && ultimoDisparo >= coolDown)
