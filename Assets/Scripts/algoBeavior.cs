@@ -21,8 +21,22 @@ public class algoBeavior : MonoBehaviour
         {   
             vidaCount.Vida -= 10;
             empurrando = tempoEmpurrar;
-            xPush = playerBehavior.xMoviment;
-            yPush = playerBehavior.yMoviment;
+            if (transform.position.x > 0)
+            {
+                xPush = 1;
+            }
+            if (transform.position.x < 0)
+            {
+                xPush = -1;
+            }
+            if (transform.position.y > 0)
+            {
+                yPush = 1;
+            }
+            if (transform.position.y < 0)
+            {
+                yPush = -1;
+            }
         }
     }
 
