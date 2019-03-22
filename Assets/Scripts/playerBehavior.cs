@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class playerBehavior : MonoBehaviour
 {
+    float ultimoDisparo;
+
     public float speed;
     public float xMax;
     public float yMax;
+    public float coolDown;
 
     public static float xMoviment;
     public static float yMoviment;
@@ -72,9 +75,12 @@ public class playerBehavior : MonoBehaviour
 
     void Ataque()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && ultimoDisparo >= coolDown)
         {
             Instantiate(ataqueDoMago, new Vector3(transform.position.x, transform.position.y), Quaternion.identity);
+            ultimoDisparo = 0;
         }
+
+        ultimoDisparo += Time.deltaTime;
    }
 }
