@@ -1,79 +1,67 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class algoBeavior : MonoBehaviour
 {
-    float empurrando;
     float xPush;
     float yPush;
+    float defPercent;
+    float armTotal = 400;
 
+    public float vida;
     public float speed;
-
-    public float tempoEmpurrar;
+    public int resistMagica; //-1 = fraquesa / 0 = normal / 1 = resistencia 
     public GameObject Player;
-    public static float Vida;
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Detecta colisão com o player/Remove vida
+        //Detecta colisão com o player / Causa dano
         if (other.tag == "Player") 
         {   
             vidaCount.Vida -= 10;
-            empurrando = tempoEmpurrar;
-            if (transform.position.x > 0)
+        }
+        //Detecta colisão com um projetil / Recebe dano
+        if (other.tag == "Projétil")
+        {
+            //Resistencia magica
+            if (other.GetComponent<projetil>().Magic)
             {
-                xPush = 1;
+                switch (resistMagica)
+                {
+                    case -1:
+                        vida -= (other.GetComponent<projetil>().danoTotal * defPercent) + (playerBehavior.poderMagico / 3); 
+                        break;
+                    case 0:
+                        vida -= (other.GetComponent<projetil>().danoTotal * defPercent);
+                        break;
+                    case 1:
+                        vida -= (other.GetComponent<projetil>().danoTotal * defPercent) - (playerBehavior.poderMagico / 3);
+                        break;
+                }
             }
-            if (transform.position.x < 0)
+            else
             {
-                xPush = -1;
+                vida -= (other.GetComponent<projetil>().danoTotal * defPercent);
             }
-            if (transform.position.y > 0)
-            {
-                yPush = 1;
-            }
-            if (transform.position.y < 0)
-            {
-                yPush = -1;
-            }
+
         }
     }
 
     private void Update()
     {
-        Empurra();
+        defCalc();
+        Debug.Log("Vida: " + vida);
+        Debug.Log(defPercent);
+        if (vida <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
-    void Empurra()
+    void defCalc()
     {
-        //Empurra o player ao colidir com o objeto
-        if (empurrando > 0 && (playerBehavior.xMoviment != 0 || playerBehavior.yMoviment != 0))
-        {
-            playerBehavior.move = false;
-            Player.transform.Translate(Vector3.up * -yPush * speed * Time.deltaTime);
-            Player.transform.Translate(Vector3.right * -xPush * speed * Time.deltaTime);
-        }
-        else
-        {
-            playerBehavior.move = true;
-        }
-        empurrando -= Time.deltaTime;
-        if (xPush > 0)
-        {
-            xPush -= 0.7f * Time.deltaTime;
-        }
-        else if (xPush < 0)
-        {
-            xPush += 0.7f * Time.deltaTime;
-        }
-        if (yPush > 0)
-        {
-            yPush -= 0.7f * Time.deltaTime;
-        }
-        else if (yPush < 0)
-        {
-            yPush += 0.7f * Time.deltaTime;
-        }
+        defPercent = (4 * Convert.ToSingle(Math.Sqrt(armTotal))) / 100;
     }
 }

@@ -10,13 +10,13 @@ public class playerBehavior : MonoBehaviour
     public float xMax;
     public float yMax;
     public float coolDown;
+    public GameObject ataqueDoMago;
 
     public static float xMoviment;
     public static float yMoviment;
     public static bool move;
+    public static float poderMagico = 50;
 
-    public GameObject ataqueDoMago;
-    public static float poderMagico;
 
     private void Start()
     {
@@ -78,7 +78,7 @@ public class playerBehavior : MonoBehaviour
     /// </summary>
     void Ataque()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && ultimoDisparo >= coolDown)
+        if (Input.GetKey(KeyCode.Space) && ultimoDisparo >= coolDown)
         {
             Instantiate(ataqueDoMago, new Vector3(transform.position.x, transform.position.y), Quaternion.identity);
             ultimoDisparo = 0;
