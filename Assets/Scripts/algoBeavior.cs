@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,13 +31,13 @@ public class algoBeavior : MonoBehaviour
                 switch (resistMagica)
                 {
                     case -1:
-                        vida -= (other.GetComponent<projetil>().danoTotal * defPercent) + (playerBehavior.poderMagico / 3); 
+                        vida -= (other.GetComponent<projetil>().danoTotal * (1 - defPercent)) + (playerBehavior.poderMagico / 3); 
                         break;
                     case 0:
-                        vida -= (other.GetComponent<projetil>().danoTotal * defPercent);
+                        vida -= (other.GetComponent<projetil>().danoTotal * (1 - defPercent));
                         break;
                     case 1:
-                        vida -= (other.GetComponent<projetil>().danoTotal * defPercent) - (playerBehavior.poderMagico / 3);
+                        vida -= (other.GetComponent<projetil>().danoTotal * (1 - defPercent)) - (playerBehavior.poderMagico / 3);
                         break;
                 }
             }
