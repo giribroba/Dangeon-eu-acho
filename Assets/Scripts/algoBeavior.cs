@@ -5,17 +5,14 @@ using UnityEngine;
 
 public class algoBeavior : MonoBehaviour
 {
-    float xPush;
-    float yPush;
     float defPercent;
     float armTotal = 400;
     private float distance;
     private bool movimento;
 
-    public float vida;
-    public float speed;
-    public int resistMagica; //-1 = fraquesa / 0 = normal / 1 = resistencia 
-    public GameObject Player;
+    [SerializeField] float vida, speed;
+    [SerializeField] int resistMagica; //-1 = fraquesa / 0 = normal / 1 = resistencia 
+    [SerializeField] GameObject Player;
 
     private void OnTriggerEnter2D(Collider2D other)
     {

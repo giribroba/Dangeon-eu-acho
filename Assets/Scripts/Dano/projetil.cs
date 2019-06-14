@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class projetil : MonoBehaviour
 {
-    public float speed;
-    public float xmax;
-    public float ymax;
-    public GameObject bolaEnergetica;
-    public float danoBase;
-    public bool Magic; 
+    [SerializeField] float speed, xMax, yMax, danoBase;
+    [SerializeField] GameObject bolaEnergetica;
+    public bool Magic;
     public float danoTotal;
 
     void Update()
@@ -21,10 +18,9 @@ public class projetil : MonoBehaviour
     /// </summary>
     void movimentação()
     {
-
         transform.Translate(Vector3.up * speed * Time.deltaTime);
         // O projétil irá se destruir ao passar dos limites do cenario
-        if (transform.position.x > xmax || transform.position.y > ymax)
+        if (transform.position.x > xMax || transform.position.y > yMax)
         {
             Destroy(gameObject);
         }
