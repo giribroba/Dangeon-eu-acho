@@ -12,8 +12,15 @@ public class algoBeavior : MonoBehaviour
 
     [SerializeField] float vida, speed;
     [SerializeField] int resistMagica; //-1 = fraquesa / 0 = normal / 1 = resistencia 
-    [SerializeField] GameObject Player;
+    [SerializeField] GameObject Player, arma, mao;
 
+    private Vector2 pMao;
+
+    private void Start()
+    {
+        pMao = mao.transform.position - transform.position;
+        movimento = false;
+    }
     private void OnTriggerEnter2D(Collider2D other)
     {
         //Detecta colisão com o player / Causa dano
@@ -62,8 +69,21 @@ public class algoBeavior : MonoBehaviour
     void MoveToPlayer()
     {
         distance = Vector2.Distance(transform.position, Player.transform.position);
+        movimento = (distance <= 5) ? true : movimento;
         if (movimento)
         {
+            arma.GetComponent<SpriteRenderer>().enabled = true;
+            if ((Player.transform.position.x - transform.position.x) < 0)
+            {
+                mao.transform.position = new Vector2((transform.position.x + pMao.x) - 0.1f, (transform.position.y + pMao.y) - 0.1f);
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                mao.transform.position = new Vector2(transform.position.x + pMao.x, transform.position.y + pMao.y);
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            GetComponent<Animator>().SetBool("Andando", true);
             transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
         }
     }
