@@ -6,21 +6,19 @@ public class playerBehavior : MonoBehaviour
 {
     float ultimoDisparo;
 
-    public float speed;
-    public float xMax;
-    public float yMax;
-    public float coolDown;
-    public GameObject ataqueDoMago;
+    [SerializeField] float speed,yMax,xMax,coolDown;
+    [SerializeField] GameObject ataqueDoMago, arma, ponta, mao;
 
-    public static float xMoviment;
-    public static float yMoviment;
+    public static float xMoviment, yMoviment;
     public static bool move;
     public static float poderMagico = 50;
 
+    private Vector2 pMao;
 
     private void Start()
     {
         move = true;
+        pMao = mao.transform.position - transform.position;
     }
 
     void Update()
@@ -39,6 +37,14 @@ public class playerBehavior : MonoBehaviour
         xMoviment = Input.GetAxis("Horizontal");
         yMoviment = Input.GetAxis("Vertical");
 
+        if(xMoviment != 0 || yMoviment != 0)
+        {
+            GetComponent<Animator>().SetBool("Andando", true);
+        }
+        else
+        {
+            GetComponent<Animator>().SetBool("Andando", false);
+        }
         //Direção
         if (move)
         {
@@ -78,9 +84,21 @@ public class playerBehavior : MonoBehaviour
     /// </summary>
     void Ataque()
     {
-        if (Input.GetKey(KeyCode.Space) && ultimoDisparo >= coolDown)
+        arma.transform.up  = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x - arma.transform.position.x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y - arma.transform.position.y);
+        if(arma.transform.eulerAngles.z > 20 && arma.transform.eulerAngles.z < 160)
         {
-            Instantiate(ataqueDoMago, new Vector3(transform.position.x, transform.position.y), Quaternion.identity);
+            mao.transform.position = new Vector2((transform.position.x + pMao.x) - 0.1f, (transform.position.y + pMao.y) - 0.1f);
+            GetComponent<SpriteRenderer>().flipX = true;
+        }
+        else if (arma.transform.eulerAngles.z > 200  && arma.transform.eulerAngles.z < 340)
+        {
+            mao.transform.position = new Vector2(transform.position.x + pMao.x, transform.position.y + pMao.y);
+            GetComponent<SpriteRenderer>().flipX = false;
+        }
+
+        if (Input.GetKey(KeyCode.Mouse0) && ultimoDisparo >= coolDown)
+        {
+            Instantiate(ataqueDoMago, new Vector3(ponta.transform.position.x, ponta.transform.position.y), arma.transform.rotation);
             ultimoDisparo = 0;
         }
 

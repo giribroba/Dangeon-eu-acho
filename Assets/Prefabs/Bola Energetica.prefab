@@ -109,10 +109,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 541c4d6f8e82ed7449f8613975a08eb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  xmax: 9.3
-  ymax: 5.4
-  bolaEnergetica: {fileID: 0}
+  speed: 10
+  xMax: 9.5
+  yMax: 5.4
   danoBase: 20
+  bolaEnergetica: {fileID: 0}
   Magic: 1
   danoTotal: 50

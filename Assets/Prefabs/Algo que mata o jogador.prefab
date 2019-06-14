@@ -122,7 +122,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vida: 300
   speed: 6
-  resistMagica: 0
+  resistMagica: -1
   Player: {fileID: 0}
 --- !u!50 &3458120289025389612
 Rigidbody2D:
