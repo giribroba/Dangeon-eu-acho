@@ -9,6 +9,8 @@ public class algoBeavior : MonoBehaviour
     float yPush;
     float defPercent;
     float armTotal = 400;
+    private float distance;
+    private bool movimento;
 
     public float vida;
     public float speed;
@@ -25,6 +27,7 @@ public class algoBeavior : MonoBehaviour
         //Detecta colisão com um projetil / Recebe dano
         if (other.tag == "Projétil")
         {
+            movimento = true;
             //Resistencia magica
             if (other.GetComponent<projetil>().Magic)
             {
@@ -52,14 +55,21 @@ public class algoBeavior : MonoBehaviour
     private void Update()
     {
         defCalc();
-        Debug.Log("Vida: " + vida);
-        Debug.Log(defPercent);
         if (vida <= 0)
         {
             Destroy(gameObject);
         }
+        MoveToPlayer();
     }
 
+    void MoveToPlayer()
+    {
+        distance = Vector2.Distance(transform.position, Player.transform.position);
+        if (movimento)
+        {
+            transform.position = Vector2.MoveTowards(transform.position, Player.transform.position, speed * Time.deltaTime);
+        }
+    }
     void defCalc()
     {
         defPercent = (4 * Convert.ToSingle(Math.Sqrt(armTotal))) / 100;
