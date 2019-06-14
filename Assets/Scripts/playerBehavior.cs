@@ -60,23 +60,23 @@ public class playerBehavior : MonoBehaviour
     void Limit()
     {
         //Eixo X
-        if (transform.position.x > xMax)
+        if (transform.position.x - Camera.main.transform.position.x > xMax)
         {
-            transform.position = new Vector3(xMax, transform.position.y);
+            transform.position = new Vector3(xMax + Camera.main.transform.position.x, transform.position.y);
         }
-        else if (transform.position.x < -xMax)
+        else if (transform.position.x - Camera.main.transform.position.x < -xMax)
         {
-            transform.position = new Vector3(-xMax, transform.position.y);
+            transform.position = new Vector3(-xMax + Camera.main.transform.position.x, transform.position.y);
         }
 
         //Eixo Y
-        if (transform.position.y > yMax)
+        if (transform.position.y - Camera.main.transform.position.y > yMax)
         {
-            transform.position = new Vector3(transform.position.x, yMax);
+            transform.position = new Vector3(transform.position.x, yMax + Camera.main.transform.position.y);
         }
-        else if (transform.position.y < -yMax)
+        else if (transform.position.y - Camera.main.transform.position.y < -yMax)
         {
-            transform.position = new Vector3(transform.position.x, -yMax);
+            transform.position = new Vector3(transform.position.x, -yMax + Camera.main.transform.position.y);
         }
     }
     /// <summary>
