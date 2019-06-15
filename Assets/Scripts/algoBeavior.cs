@@ -61,6 +61,7 @@ public class algoBeavior : MonoBehaviour
         defCalc();
         if (vida <= 0)
         {
+	    playerBehavior.move = true;
             Destroy(gameObject);
         }
 	if (empurrar)
