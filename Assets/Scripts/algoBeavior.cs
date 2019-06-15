@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,7 +8,7 @@ public class algoBeavior : MonoBehaviour
     float defPercent;
     float armTotal = 400;
     private float distance;
-    private bool movimento;
+    private bool movimento, empurrar;
 
     [SerializeField] float vida, speed;
     [SerializeField] int resistMagica; //-1 = fraquesa / 0 = normal / 1 = resistencia 
@@ -26,7 +26,7 @@ public class algoBeavior : MonoBehaviour
         //Detecta colisão com o player / Causa dano
         if (other.tag == "Player") 
         {   
-            vidaCount.Vida -= 10;
+	    StartCoroutine(Ataque());
         }
         //Detecta colisão com um projetil / Recebe dano
         if (other.tag == "Projétil")
@@ -63,6 +63,11 @@ public class algoBeavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
+	if (empurrar)
+	{
+	    Player.transform.Translate(Vector2.right * ((Player.transform.position.x < transform.position.x)?-1.5f:1.5f)* speed * Time.deltaTime);
+	    Player.transform.Translate(Vector2.up * ((Player.transform.position.y < transform.position.y)?-1.5f:1.5f)* speed * Time.deltaTime);
+	}
         MoveToPlayer();
     }
 
@@ -75,11 +80,13 @@ public class algoBeavior : MonoBehaviour
             arma.GetComponent<SpriteRenderer>().enabled = true;
             if ((Player.transform.position.x - transform.position.x) < 0)
             {
+                GetComponent<Animator>().SetFloat("Ataque", 0);
                 mao.transform.position = new Vector2((transform.position.x + pMao.x) - 0.1f, (transform.position.y + pMao.y) - 0.1f);
                 GetComponent<SpriteRenderer>().flipX = true;
             }
             else
             {
+                GetComponent<Animator>().SetFloat("Ataque", 1);
                 mao.transform.position = new Vector2(transform.position.x + pMao.x, transform.position.y + pMao.y);
                 GetComponent<SpriteRenderer>().flipX = false;
             }
@@ -90,5 +97,16 @@ public class algoBeavior : MonoBehaviour
     void defCalc()
     {
         defPercent = (4 * Convert.ToSingle(Math.Sqrt(armTotal))) / 100;
+    }
+
+    IEnumerator Ataque()
+    {    
+	GetComponent<Animator>().SetBool("Atacando", true);	
+	empurrar = true;
+	playerBehavior.move = false;
+	yield return new WaitForSeconds(0.3f);
+	GetComponent<Animator>().SetBool("Atacando", false);
+	playerBehavior.move = true;
+	empurrar = false;
     }
 }

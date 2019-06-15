@@ -20,7 +20,7 @@ public class projetil : MonoBehaviour
     {
         transform.Translate(Vector3.up * speed * Time.deltaTime);
         // O projétil irá se destruir ao passar dos limites do cenario
-        if (transform.position.x > xMax || transform.position.y > yMax)
+        if (transform.position.x > xMax + Camera.main.transform.position.x || transform.position.y > yMax + Camera.main.transform.position.y || transform.position.x < -xMax + Camera.main.transform.position.x|| transform.position.y < -yMax + Camera.main.transform.position.y)
         {
             Destroy(gameObject);
         }
