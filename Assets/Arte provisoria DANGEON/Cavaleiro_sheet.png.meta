@@ -1,10 +1,14 @@
 fileFormatVersion: 2
-guid: bd54030e1cd4c704a98078b45cc436f7
+guid: e602ed84dd6dd6c45b1841370442f5a9
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Cavaleiro 1_0
-    21300002: Cavaleiro 1_1
-    21300004: Cavaleiro 1_2
+    21300000: Cavaleiro_sheet_0
+    21300002: Cavaleiro_sheet_1
+    21300004: Cavaleiro_sheet_2
+    21300006: Cavaleiro_sheet_3
+    21300008: Cavaleiro_sheet_4
+    21300010: Cavaleiro_sheet_5
+    21300012: Cavaleiro_sheet_6
   externalObjects: {}
   serializedVersion: 9
   mipmaps:
@@ -63,7 +67,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 2
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 64
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -74,7 +78,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Standalone
-    maxTextureSize: 64
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -85,7 +89,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
   - serializedVersion: 2
     buildTarget: Android
-    maxTextureSize: 64
+    maxTextureSize: 256
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -98,7 +102,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Cavaleiro 1_0
+      name: Cavaleiro_sheet_0
       rect:
         serializedVersion: 2
         x: 0
@@ -106,19 +110,19 @@ TextureImporter:
         width: 20
         height: 21
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a982c00c60191749a6c375597c1cbfc
+      spriteID: 03fa5e9166001b64c83ebf746eb177ee
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cavaleiro 1_1
+      name: Cavaleiro_sheet_1
       rect:
         serializedVersion: 2
         x: 20
@@ -126,19 +130,19 @@ TextureImporter:
         width: 20
         height: 21
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 19a4de1c0c29f814da78ae5a4f025940
+      spriteID: 1acb7adf36a334a44b8c69459594cc93
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Cavaleiro 1_2
+      name: Cavaleiro_sheet_2
       rect:
         serializedVersion: 2
         x: 40
@@ -146,13 +150,93 @@ TextureImporter:
         width: 20
         height: 21
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 385b4060e2724f14d9c883d564d9d69b
+      spriteID: 270075b6ecda46748a42864843d69002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cavaleiro_sheet_3
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 0
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb31902f76e7c794badc38b2dff6f89e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cavaleiro_sheet_4
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf0737219f9363342a56ad00b14f8d13
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cavaleiro_sheet_5
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 0
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9f9742631880664ab6dc4e24f878830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cavaleiro_sheet_6
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 0
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8ad059976b988147a29445e02de558f
       vertices: []
       indices: 
       edges: []
@@ -160,7 +244,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 5522f279c0308c24591d6a878b1626f3
+    spriteID: 9f8f4bbe6d67a444dbff9b9148e498bf
     vertices: []
     indices: 
     edges: []

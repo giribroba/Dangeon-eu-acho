@@ -1,31 +1,45 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class playerBehavior : MonoBehaviour
 {
-    float ultimoDisparo;
+    float ultimoDisparo, defPercent;
+    Vector2 pMouse;
 
-    [SerializeField] float speed,yMax,xMax,coolDown;
-    [SerializeField] GameObject ataqueDoMago, arma, ponta, mao;
+    [SerializeField] float speed, yMax, xMax, coolDown, armTotal;
+    [SerializeField] GameObject ataqueDoMago, arma, ponta, mao, controlador, fade;
 
     public static float xMoviment, yMoviment;
     public static bool move;
     public static float poderMagico = 50;
 
-    private Vector2 pMao;
-
     private void Start()
     {
         move = true;
-        pMao = mao.transform.position - transform.position;
     }
 
     void Update()
     {
+        pMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        defPercent = (4 * Convert.ToSingle(Math.Sqrt(armTotal))) / 100;
         Moviment();
-        Limit();
         Ataque();
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.tag == "Room")
+        {
+            Camera.main.transform.position = new Vector3(collision.transform.position.x, collision.transform.position.y, Camera.main.transform.position.z);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Room")
+        {
+            fade.GetComponent<Animator>().SetTrigger("Fade");
+        }
     }
 
     /// <summary>
@@ -33,66 +47,27 @@ public class playerBehavior : MonoBehaviour
     /// </summary>
     void Moviment()
     {
-        //Impulso
-        xMoviment = Input.GetAxis("Horizontal");
-        yMoviment = Input.GetAxis("Vertical");
+        //impulso
+        controlador.transform.localPosition = new Vector2(Input.GetAxis("Horizontal") / 10, Input.GetAxis("Vertical") / 10);
 
-        if(xMoviment != 0 || yMoviment != 0)
-        {
-            GetComponent<Animator>().SetBool("Andando", true);
-        }
-        else
-        {
-            GetComponent<Animator>().SetBool("Andando", false);
-        }
-        //Direção
-        if (move)
-        {
-            transform.Translate(Vector3.right * xMoviment * speed * Time.deltaTime);
-            transform.Translate(Vector3.up * yMoviment * speed * Time.deltaTime);
-        }
-
-    }
-
-    /// <summary>
-    /// Essa função limita o movimento do player
-    /// </summary>
-    void Limit()
-    {
-        //Eixo X
-        if (transform.position.x - Camera.main.transform.position.x > xMax)
-        {
-            transform.position = new Vector3(xMax + Camera.main.transform.position.x, transform.position.y);
-        }
-        else if (transform.position.x - Camera.main.transform.position.x < -xMax)
-        {
-            transform.position = new Vector3(-xMax + Camera.main.transform.position.x, transform.position.y);
-        }
-
-        //Eixo Y
-        if (transform.position.y - Camera.main.transform.position.y > yMax)
-        {
-            transform.position = new Vector3(transform.position.x, yMax + Camera.main.transform.position.y);
-        }
-        else if (transform.position.y - Camera.main.transform.position.y < -yMax)
-        {
-            transform.position = new Vector3(transform.position.x, -yMax + Camera.main.transform.position.y);
-        }
+        //movimento
+        transform.position = Vector2.MoveTowards(transform.position, controlador.transform.position, speed * Time.deltaTime);      
+        GetComponent<Animator>().SetBool("Andando", controlador.transform.localPosition != Vector3.zero);        
     }
     /// <summary>
     /// Lança um ataque básico quando o jogador pressiona a barra de espaço
     /// </summary>
     void Ataque()
     {
-        arma.transform.up  = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x - arma.transform.position.x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y - arma.transform.position.y);
-        if(arma.transform.eulerAngles.z > 20 && arma.transform.eulerAngles.z < 160)
+        arma.transform.up  = new Vector2(pMouse.x - arma.transform.position.x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y - arma.transform.position.y);
+        if(arma.transform.eulerAngles.z > 20 && arma.transform.eulerAngles.z < 160 && Mathf.Abs(pMouse.x - transform.position.x) > 0.5f)
         {
-            mao.transform.position = new Vector2((transform.position.x + pMao.x) - 0.1f, (transform.position.y + pMao.y) - 0.1f);
+            mao.transform.localPosition = new Vector2(0.05f, -0.055f);
             GetComponent<SpriteRenderer>().flipX = true;
         }
-        else if (arma.transform.eulerAngles.z > 200  && arma.transform.eulerAngles.z < 340)
+        else if (arma.transform.eulerAngles.z > 200  && arma.transform.eulerAngles.z < 340 && Mathf.Abs(pMouse.x - transform.position.x) > 0.5f)
         {
-            mao.transform.position = new Vector2(transform.position.x + pMao.x, transform.position.y + pMao.y);
+            mao.transform.localPosition = new Vector2(0.07f, -0.045f);
             GetComponent<SpriteRenderer>().flipX = false;
         }
 
@@ -104,4 +79,9 @@ public class playerBehavior : MonoBehaviour
 
         ultimoDisparo += Time.deltaTime;
    }
+    
+    public void Dano(float danoTotal)
+    {
+        vidaCount.Vida -= (danoTotal * (1 - defPercent));
+    }
 }
