@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class playerBehavior : MonoBehaviour
 {
+    private SpriteRenderer sr;
+    private Animator anim;
+
     float ultimoDisparo, defPercent;
     Vector2 pMouse;
 
@@ -14,6 +17,12 @@ public class playerBehavior : MonoBehaviour
     public static float xMoviment, yMoviment;
     public static bool move;
     public static float poderMagico = 50;
+
+    private void Awake()
+    {
+        sr = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+    }
 
     private void Start()
     {
@@ -52,7 +61,7 @@ public class playerBehavior : MonoBehaviour
 
         //movimento
         transform.position = Vector2.MoveTowards(transform.position, controlador.transform.position, speed * Time.deltaTime);      
-        GetComponent<Animator>().SetBool("Andando", controlador.transform.localPosition != Vector3.zero);        
+        anim.SetBool("Andando", controlador.transform.localPosition != Vector3.zero);        
     }
     /// <summary>
     /// Lança um ataque básico quando o jogador pressiona a barra de espaço
@@ -63,12 +72,12 @@ public class playerBehavior : MonoBehaviour
         if(arma.transform.eulerAngles.z > 20 && arma.transform.eulerAngles.z < 160 && Mathf.Abs(pMouse.x - transform.position.x) > 0.5f)
         {
             mao.transform.localPosition = new Vector2(0.05f, -0.055f);
-            GetComponent<SpriteRenderer>().flipX = true;
+            sr.flipX = true;
         }
         else if (arma.transform.eulerAngles.z > 200  && arma.transform.eulerAngles.z < 340 && Mathf.Abs(pMouse.x - transform.position.x) > 0.5f)
         {
             mao.transform.localPosition = new Vector2(0.07f, -0.045f);
-            GetComponent<SpriteRenderer>().flipX = false;
+            sr.flipX = false;
         }
 
         if (Input.GetKey(KeyCode.Mouse0) && ultimoDisparo >= coolDown)

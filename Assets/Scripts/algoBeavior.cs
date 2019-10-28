@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class algoBeavior : MonoBehaviour
 {
+    private SpriteRenderer sr;
+    private Animator anim;
+    private GameOject proj;
     float defPercent;
     float armTotal = 400;
     private float distance;
@@ -16,7 +19,9 @@ public class algoBeavior : MonoBehaviour
     [SerializeField] GameObject player, arma, mao, detectaCosta, detectaFrente;
 
     public float danoTotal;
-
+    private void Awake(){
+        anim = GetComponent<Animator>();
+    }
     private void Start()
     {
         danoTotal = danoBase + 0.8f * forcaFisica;
@@ -28,26 +33,28 @@ public class algoBeavior : MonoBehaviour
         //Detecta colisão com um projetil / Recebe dano
         if (other.tag == "Projétil")
         {
+            proj = other.GetComponent<projetil>();
             alerta = true;
             //Resistencia magica
-            if (other.GetComponent<projetil>().Magic)
+            if (proj.Magic)
             {
+
                 switch (resistMagica)
                 {
                     case -1:
-                        vida -= (other.GetComponent<projetil>().danoTotal * (1 - defPercent)) + (playerBehavior.poderMagico / 3); 
+                        vida -= (proj.danoTotal * (1 - defPercent)) + (playerBehavior.poderMagico / 3); 
                         break;
                     case 0:
-                        vida -= (other.GetComponent<projetil>().danoTotal * (1 - defPercent));
+                        vida -= (proj.danoTotal * (1 - defPercent));
                         break;
                     case 1:
-                        vida -= (other.GetComponent<projetil>().danoTotal * (1 - defPercent)) - (playerBehavior.poderMagico / 3);
+                        vida -= (proj.danoTotal * (1 - defPercent)) - (playerBehavior.poderMagico / 3);
                         break;
                 }
             }
             else
             {
-                vida -= (other.GetComponent<projetil>().danoTotal * defPercent);
+                vida -= (proj.danoTotal * defPercent);
             }
 
         }
@@ -68,28 +75,28 @@ public class algoBeavior : MonoBehaviour
         if (alerta)
         {
             arma.GetComponent<SpriteRenderer>().enabled = true;
-            GetComponent<SpriteRenderer>().flipX = player.transform.position.x < transform.position.x ;
+            sr.flipX = player.transform.position.x < transform.position.x ;
             mao.transform.localPosition = new Vector2(((player.transform.position.x < transform.position.x)? -0.07f : 0.07f), -0.045f);
-            GetComponent<Animator>().SetBool("Andando", true);
+            anim.SetBool("Andando", true);
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
         }
         else
         {
             if (X == 0 && Y == 0)
             {
-                GetComponent<Animator>().SetBool("Andando", false);
+                anim.SetBool("Andando", false);
             }
             else
             {
-                GetComponent<Animator>().SetBool("Andando", true);
+               anim.SetBool("Andando", true);
             }
             if (X < 0)
             {
-                GetComponent<SpriteRenderer>().flipX = true;
+                sr.flipX = true;
             }
             else
             {
-                GetComponent<SpriteRenderer>().flipX = false;
+                sr.flipX = false;
             }
             transform.Translate(Vector2.right * X * speed * Time.deltaTime);
             transform.Translate(Vector2.up * Y * speed * Time.deltaTime);
@@ -98,21 +105,21 @@ public class algoBeavior : MonoBehaviour
         {
             if (player.transform.position.y - transform.position.y > 0.4f)
             {
-                GetComponent<Animator>().SetFloat("Ataque", 0.66f);
+                anim.SetFloat("Ataque", 0.66f);
             }
             else if(player.transform.position.y - transform.position.y < -1.15f)
             {
-                GetComponent<Animator>().SetFloat("Ataque", 1);
+                anim.SetFloat("Ataque", 1);
             }
             else if(player.transform.position.x < transform.position.x)
             {
-                GetComponent<Animator>().SetFloat("Ataque", 0.33f);
+                anim.SetFloat("Ataque", 0.33f);
             }
             else
             {
-                GetComponent<Animator>().SetFloat("Ataque", 0);
+                anim.SetFloat("Ataque", 0);
             }
-            GetComponent<Animator>().SetTrigger("Atacando");
+            anim.SetTrigger("Atacando");
         }
     }
     void defCalc()
